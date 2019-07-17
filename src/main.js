@@ -126,11 +126,6 @@ var app = new Vue({
 		},
 
     commentsSwitch: function(index, img_id) {
-      // if(this.show.indexOf(img_id) != -1) {
-      //   this.show.pop(this.show.indexOf(img_id))
-      // } else {
-      //   this.show.push(img_id)
-      // }
       this.show[index] = !this.show[index]
       this.show.push(false)
       this.show.pop(-1)
@@ -209,7 +204,7 @@ var app = new Vue({
 			})
 		},
 
-		voteW: function(img_id) {
+		voteW: function(img_id, index) {
 			var data = {
 				"img_id": img_id,
 				"type": 1,
@@ -228,7 +223,7 @@ var app = new Vue({
 			})
 		},
 
-		voteM: function(img_id) {
+		voteM: function(img_id, index) {
 			var data = {
 				"img_id": img_id,
 				"type": 0,

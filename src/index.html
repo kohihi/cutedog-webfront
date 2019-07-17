@@ -53,8 +53,8 @@
                       </div>
                       <div class="comment" :data-imgId="img.img_id">
                           <div style="text-align: right; padding-right: 50px; margin: 5px 0px 10px 0px;">
-                              <a id="ok" class="a-button" v-on:click="voteW(img.img_id)">汪 {{img.w}}</a> /
-                              <a id="no" class="a-button" v-on:click="voteM(img.img_id)"> 喵 {{img.m}}</a> /
+                              <a id="ok" class="a-button" v-on:click="voteW(img.img_id, index)">汪 {{img.w}}</a> /
+                              <a id="no" class="a-button" v-on:click="voteM(img.img_id, index)"> 喵 {{img.m}}</a> /
                               <a id="comment" class="a-button" v-on:click="commentsSwitch(index, img.img_id)"> 吐槽 {{img.comments_num}}</a>
                           </div>
                           <transition name="fade">
