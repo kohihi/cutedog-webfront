@@ -55,7 +55,6 @@ var getCookie = function(c_name) {
 var app = new Vue({
 	el: '#app',
 	data: {
-		message: 'Hello Vue!',
 		show: {},
 		imgList: [],
 		comments: {},
@@ -64,7 +63,15 @@ var app = new Vue({
 		current_board: 'all',
 		author: 'Anonymous',
 		message:"",
-		alert: false
+		alert: false,
+    imgUrl: '',
+    imgWords: '',
+    board: 'dog',
+    boardSelect: [
+      {'key': '汪', 'value': 'dog'},
+      {'key': '喵', 'value': 'cat'},
+      {'key': '其他', 'value': 'other'},
+    ]
 	},
 	mounted() {
 		this.getImg(1)
@@ -135,20 +142,16 @@ var app = new Vue({
 		},
 
 		submitUrl: function() {
-			var inputUrl = e("#text-url")
-			var inputWord = e('#text-word')
-			var url = inputUrl.value
-			var word=((inputWord.value.replace(/<(.+?)>/gi,"&lt;$1&gt;")).replace(/ /gi,"&nbsp;")).replace(/\n/gi,"<br>")
-			var board = e("#select-board").value
+      let words = ((this.imgWords.replace(/<(.+?)>/gi,"&lt;$1&gt;")).replace(/ /gi,"&nbsp;")).replace(/\n/gi,"<br>")
 			const regex = /^\s*$/
-			if (regex.test(url)) {
+			if (regex.test(this.imgUrl)) {
 				return
 			}
 			var data = {
 				"author": this.author,
-				"url": url,
-				"word": word,
-				"board": board
+				"url": this.imgUrl,
+				"word": words,
+				"board": this.board,
 			}
 			var path = `/api/image`
 			var that = this
@@ -156,8 +159,8 @@ var app = new Vue({
 				r = JSON.parse(r)
 				if (r.code == 0) {
             that.alertText("已提交")
-            inputUrl.value = ""
-            inputWord.value = ""
+            that.imgUrl = ""
+            that.imgWords = ""
         } else {
             alert("error:code" + r.code)
         }

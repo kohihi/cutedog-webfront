@@ -95,18 +95,18 @@
                 <br>
                 <div>
                     图片链接：
-                    <textarea class="post" name="url-post" id="text-url" cols="55" rows="5" placeholder="http://xxxxxxxxxx"></textarea>
+                    <textarea class="post" name="url-post" v-model="imgUrl" id="text-url" cols="55" rows="5" placeholder="http://xxxxxxxxxx"></textarea>
                 </div>
                 <div>
                     附文：
-                    <textarea class="post" name="word-post" id="text-word" cols="55" rows="3" placeholder="还想说点什么…"></textarea>
+                    <textarea class="post" name="word-post" v-model="imgWords" id="text-word" cols="55" rows="3" placeholder="还想说点什么…"></textarea>
                 </div>
                 <div>
                     投稿到：
-                    <select id="select-board">
-                        <option value = "dog">汪</option>
-                        <option value = "cat">喵</option>
-                        <option value = "other">其他</option>
+                    <select id="select-board" v-model="board">
+                        <option v-for="option in boardSelect" v-bind:value="option.value">
+                          {{ option.key }}
+                        </option>
                     </select>
                 </div>
                 <button v-on:click="submitUrl" class="button-submit">提交</button>
