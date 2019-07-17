@@ -55,7 +55,7 @@ var getCookie = function(c_name) {
 var app = new Vue({
 	el: '#app',
 	data: {
-		show: {},
+		show: [],
 		imgList: [],
 		comments: {},
 		current_page: 0,
@@ -71,7 +71,7 @@ var app = new Vue({
       {'key': '汪', 'value': 'dog'},
       {'key': '喵', 'value': 'cat'},
       {'key': '其他', 'value': 'other'},
-    ]
+    ],
 	},
 	mounted() {
 		this.getImg(1)
@@ -105,6 +105,7 @@ var app = new Vue({
 	},
 	methods: {
 		getImg: function(page, board='all') {
+      this.closeAllComments()
 			var path = `/api/image`
 			var data = {
 				"page": page,
@@ -124,22 +125,39 @@ var app = new Vue({
 			})
 		},
 
-		getComments: function(event) {
-			var path = `/api/image/comment`
-			var params = {
-				"img_id": parseInt(event.target.parentElement.parentElement.dataset.imgid),
-			}
-			this.show[params.img_id] = !this.show[params.img_id]
-			var that = this
-			ajax("GET", path, params, function(r) {
-				r = JSON.parse(r)
-				if (r.code == 0) {
-					Vue.set(that.comments, params.img_id, r.data)
-				} else {
-					alert("error:code" + r.code)
-				}
-			})
-		},
+    commentsSwitch: function(index, img_id) {
+      // if(this.show.indexOf(img_id) != -1) {
+      //   this.show.pop(this.show.indexOf(img_id))
+      // } else {
+      //   this.show.push(img_id)
+      // }
+      this.show[index] = !this.show[index]
+      this.show.push(false)
+      this.show.pop(-1)
+      if (!this.show[index]) {
+        return
+      }
+
+      var path = `/api/image/comment`
+      var params = {
+        "img_id": img_id,
+      }
+
+      var that = this
+      ajax("GET", path, params, function(r){
+        r = JSON.parse(r)
+        if (r.code == 0) {
+          Vue.set(that.comments, params.img_id, r.data)
+        } else {
+          alert("error:code" + r.code)
+        }
+      })
+
+    },
+
+    closeAllComments: function() {
+      this.show = []
+    },
 
 		submitUrl: function() {
       let words = ((this.imgWords.replace(/<(.+?)>/gi,"&lt;$1&gt;")).replace(/ /gi,"&nbsp;")).replace(/\n/gi,"<br>")
@@ -191,9 +209,9 @@ var app = new Vue({
 			})
 		},
 
-		voteW: function(index, event) {
+		voteW: function(img_id) {
 			var data = {
-				"img_id": parseInt(event.target.parentElement.parentElement.dataset.imgid),
+				"img_id": img_id,
 				"type": 1,
 			}
 			var path = `/api/vote`
@@ -210,9 +228,9 @@ var app = new Vue({
 			})
 		},
 
-		voteM: function(index, event) {
+		voteM: function(img_id) {
 			var data = {
-				"img_id": parseInt(event.target.parentElement.parentElement.dataset.imgid),
+				"img_id": img_id,
 				"type": 0,
 			}
 			var path = `/api/vote`

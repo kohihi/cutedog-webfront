@@ -52,12 +52,12 @@
                     </div>
                     <div class="comment" :data-imgId="img.img_id">
                         <div style="text-align: right; padding-right: 50px; margin: 5px 0px 10px 0px;">
-                            <a id="ok" class="a-button" v-on:click="voteW(index, $event)">汪 {{img.w}}</a> /
-                            <a id="no" class="a-button" v-on:click="voteM(index, $event)"> 喵 {{img.m}}</a> /
-                            <a id="comment" class="a-button" v-on:click="getComments"> 吐槽 {{img.comments_num}}</a>
+                            <a id="ok" class="a-button" v-on:click="voteW(img.img_id)">汪 {{img.w}}</a> /
+                            <a id="no" class="a-button" v-on:click="voteM(img.img_id)"> 喵 {{img.m}}</a> /
+                            <a id="comment" class="a-button" v-on:click="commentsSwitch(index, img.img_id)"> 吐槽 {{img.comments_num}}</a>
                         </div>
                         <transition name="fade">
-                        <div v-show="show[img.img_id]">
+                        <div v-show="show[index]">
                             <div class="comments" v-for="c in comments[img.img_id]">
                                 <label class="user_name">{{c.author}}</label>
                                 <label class="timestamp">@ {{c.ct | dateFormat}}</label><br>

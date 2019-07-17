@@ -52,12 +52,12 @@
                     </div>
                     <div class="comment" :data-imgId="img.img_id">
                         <div style="text-align: right; padding-right: 50px; margin: 5px 0px 10px 0px;">
-                            <a id="ok" class="a-button" v-on:click="voteW(index, $event)">汪 {{img.w}}</a> /
-                            <a id="no" class="a-button" v-on:click="voteM(index, $event)"> 喵 {{img.m}}</a> /
-                            <a id="comment" class="a-button" v-on:click="getComments"> 吐槽 {{img.comments_num}}</a>
+                            <a id="ok" class="a-button" v-on:click="voteW(img.img_id)">汪 {{img.w}}</a> /
+                            <a id="no" class="a-button" v-on:click="voteM(img.img_id)"> 喵 {{img.m}}</a> /
+                            <a id="comment" class="a-button" v-on:click="commentsSwitch(index, img.img_id)"> 吐槽 {{img.comments_num}}</a>
                         </div>
                         <transition name="fade">
-                        <div v-show="show[img.img_id]">
+                        <div v-show="show[index]">
                             <div class="comments" v-for="c in comments[img.img_id]">
                                 <label class="user_name">{{c.author}}</label>
                                 <label class="timestamp">@ {{c.ct | dateFormat}}</label><br>
@@ -95,18 +95,18 @@
                 <br>
                 <div>
                     图片链接：
-                    <textarea class="post" name="url-post" id="text-url" cols="55" rows="5" placeholder="http://xxxxxxxxxx"></textarea>
+                    <textarea class="post" name="url-post" v-model="imgUrl" id="text-url" cols="55" rows="5" placeholder="http://xxxxxxxxxx"></textarea>
                 </div>
                 <div>
                     附文：
-                    <textarea class="post" name="word-post" id="text-word" cols="55" rows="3" placeholder="还想说点什么…"></textarea>
+                    <textarea class="post" name="word-post" v-model="imgWords" id="text-word" cols="55" rows="3" placeholder="还想说点什么…"></textarea>
                 </div>
                 <div>
                     投稿到：
-                    <select id="select-board">
-                        <option value = "dog">汪</option>
-                        <option value = "cat">喵</option>
-                        <option value = "other">其他</option>
+                    <select id="select-board" v-model="board">
+                        <option v-for="option in boardSelect" v-bind:value="option.value">
+                          {{ option.key }}
+                        </option>
                     </select>
                 </div>
                 <button v-on:click="submitUrl" class="button-submit">提交</button>
@@ -129,5 +129,5 @@
       gtag('js', new Date());
       gtag('config', 'UA-101079172-2');
     </script>
-    <script type="text/javascript" src="main.js?b90dc86d8f3bbbee7acf"></script></body>
+    <script type="text/javascript" src="main.js?446f8f891c02c21fc09a"></script></body>
 </html>
