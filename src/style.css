@@ -121,6 +121,12 @@ textarea {
 .text>img {
     margin-bottom: 3px;
 }
+.text>span {
+  display: inline-block;
+  font-family: sans-serif;
+  font-weight: 300;
+  word-break: break-word;
+}
 .comment>a {
     color: #000;
     text-decoration: none;
