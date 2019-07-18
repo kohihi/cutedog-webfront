@@ -72,6 +72,8 @@ var app = new Vue({
       {'key': '喵', 'value': 'cat'},
       {'key': '其他', 'value': 'other'},
     ],
+    scrollFlag: false,
+    scrollTop: 0,
 	},
 	mounted() {
 		this.getImg(1)
@@ -79,7 +81,11 @@ var app = new Vue({
 		if (author != "") {
 			this.author = author
 		}
+    window.addEventListener('scroll', this.scrollToTop)
 	},
+  destroyed() {
+    window.removeEventListener('scroll', this.scrollToTop)
+  },
 	filters: {
 		dateFormat: function(value) {
 			var a = new Date() - new Date(value)
@@ -132,12 +138,10 @@ var app = new Vue({
       if (!this.show[index]) {
         return
       }
-
       var path = `/api/image/comment`
       var params = {
         "img_id": img_id,
       }
-
       var that = this
       ajax("GET", path, params, function(r){
         r = JSON.parse(r)
@@ -147,7 +151,6 @@ var app = new Vue({
           alert("error:code" + r.code)
         }
       })
-
     },
 
     closeAllComments: function() {
@@ -273,5 +276,26 @@ var app = new Vue({
 			}, 2000, t)
 		},
 
+    backTop: function() {
+      let that = this
+      let timer = setInterval(() => {
+        let ispeed = Math.floor(-that.scrollTop / 5)
+        document.documentElement.scrollTop = document.body.scrollTop = that.scrollTop + ispeed
+        if (that.scrollTop === 0) {
+          clearInterval(timer)
+        }
+      }, 16)
+   },
+
+    scrollToTop: function() {
+      let that = this
+      let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+      that.scrollTop = scrollTop
+      if (that.scrollTop > 450) {
+        that.scrollFlag = true
+      } else {
+        that.scrollFlag = false
+      }
+    }
 	}
 })

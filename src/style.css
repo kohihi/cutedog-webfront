@@ -180,6 +180,29 @@ textarea {
     padding-top: 30px;
     border-radius: 7px;
 }
+#id_nav_top {
+  display: block;
+  background-color: gray;
+  color: wheat;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  text-align: center;
+  cursor: pointer;
+  position: fixed;
+  top: 90%;
+  right: 10%;
+}
+#id_nav_top:hover {
+  background-color: wheat;
+  color: gray;
+}
+#id_nav_top>span{
+  font-size: 23px;
+  position: relative;
+  top: 10px;
+  cursor: pointer;
+}
 
 /* ↓↓↓↓过渡动画效果↓↓↓↓ */
 .fade-enter-active, .fade-leave-active {
