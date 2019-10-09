@@ -1,9 +1,5 @@
-import Vue from 'vue'
-import {Col, Row, Message} from 'element-ui'
-import 'element-ui/lib/theme-chalk/col.css'
-import 'element-ui/lib/theme-chalk/row.css'
-import 'element-ui/lib/theme-chalk/message.css'
-import 'element-ui/lib/theme-chalk/display.css'
+// import Vue from 'vue'
+// import ElementUI from 'element-ui'
 import './style.css'
 
 var ajax = function(method, path, data, responseCallback) {
@@ -57,9 +53,7 @@ var getCookie = function(c_name) {
   return ""
 }
 
-Vue.use(Col)
-Vue.use(Row)
-Vue.prototype.$message = Message
+// Vue.use(ElementUI)
 
 var app = new Vue({
 	el: '#app',
