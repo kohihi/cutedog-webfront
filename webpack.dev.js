@@ -9,7 +9,7 @@ module.exports = merge(common, {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'SERVICE_URL': JSON.stringify('http://127.0.0.1:9001')
+      'SERVICE_URL': JSON.stringify('http://192.168.31.78:9001')
     }),
   ],
 });
