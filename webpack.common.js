@@ -16,6 +16,7 @@ module.exports = {
       filename: 'index.html',
       title: '汪喵贴图板',
       meta: {
+        referrer: 'never',
         description: '网站的主题是阿猫阿狗与其他可爱动物的图片。',
         keywords: '汪喵贴图板,wangmiao,汪喵,萌宠,猫,狗,匿名版,匿名论坛,汪,喵,宠物,动物,搞笑,摸鱼,gif图',
         charset: 'UTF-8',
