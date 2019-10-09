@@ -1,4 +1,9 @@
 import Vue from 'vue'
+import {Col, Row, Message} from 'element-ui'
+import 'element-ui/lib/theme-chalk/col.css'
+import 'element-ui/lib/theme-chalk/row.css'
+import 'element-ui/lib/theme-chalk/message.css'
+import 'element-ui/lib/theme-chalk/display.css'
 import './style.css'
 
 var ajax = function(method, path, data, responseCallback) {
@@ -52,6 +57,10 @@ var getCookie = function(c_name) {
   return ""
 }
 
+Vue.use(Col)
+Vue.use(Row)
+Vue.prototype.$message = Message
+
 var app = new Vue({
 	el: '#app',
 	data: {
@@ -83,9 +92,9 @@ var app = new Vue({
 		}
     window.addEventListener('scroll', this.scrollToTop)
 	},
-  destroyed() {
-    window.removeEventListener('scroll', this.scrollToTop)
-  },
+	destroyed() {
+		window.removeEventListener('scroll', this.scrollToTop)
+	},
 	filters: {
 		dateFormat: function(value) {
 			var a = new Date() - new Date(value)
@@ -111,7 +120,7 @@ var app = new Vue({
 	},
 	methods: {
 		getImg: function(page, board='all') {
-      this.closeAllComments()
+	    	this.closeAllComments()
 			var path = `/api/image`
 			var data = {
 				"page": page,
@@ -157,7 +166,7 @@ var app = new Vue({
       this.show = []
     },
 
-		submitUrl: function() {
+	submitUrl: function() {
       let words = ((this.imgWords.replace(/<(.+?)>/gi,"&lt;$1&gt;")).replace(/ /gi,"&nbsp;")).replace(/\n/gi,"<br>")
 			const regex = /^\s*$/
 			if (regex.test(this.imgUrl)) {
@@ -220,7 +229,7 @@ var app = new Vue({
 					that.imgList[index].w += 1
 					that.alertText("汪!")
 				} else {
-					that.alertText("已经点过汪了")
+					that.alertText("已经点过汪了", "warning")
 				}
 
 			})
@@ -239,7 +248,7 @@ var app = new Vue({
 					that.imgList[index].m += 1
 					that.alertText("喵~")
 				} else {
-					that.alertText("已经点过喵了")
+					that.alertText("已经点过喵了", "warning")
 				}
 
 			})
@@ -260,7 +269,7 @@ var app = new Vue({
 			var a = e("#author").value
 			const regex = /^\s*$/
 			if (regex.test(a)) {
-				alert("名字不能全是空白符")
+				this.alertText("名字不能全是空白符", "error")
 				return
 			}
 			setCookie("author", a, 365)
@@ -268,12 +277,18 @@ var app = new Vue({
 			e("#author").value = ""
 		},
 
-		alertText: function(text) {
-			this.message = text
-			this.alert = true
-			var t = setTimeout(() => {
-				this.alert = false
-			}, 2000, t)
+		// 使用eui的 message 组件
+		alertText: function(text, type='success') {
+			this.$message({
+				message: text,
+				type: type,
+				center: true,
+			})
+			// this.message = text
+			// this.alert = true
+			// var t = setTimeout(() => {
+			// 	this.alert = false
+			// }, 2000, t)
 		},
 
     backTop: function() {

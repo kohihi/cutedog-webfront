@@ -8,8 +8,8 @@ textarea {
     font-size: 18px;
 }
 .footer {
-  width: 100%;
-  height: 200px;
+  width: 1200px;
+  height: 100px;
   margin: auto;
   text-align: center;
 }
@@ -34,16 +34,16 @@ textarea {
     cursor: pointer;
 }
 
-.nav li {
+.nav>li {
     list-style-type: none;
     display: inline;
     background-color: #EEE;
     padding: 3px 5px 3px 5px;
 }
-.nav li>a {
+.nav>li>a {
     text-decoration: none;
 }
-.nav li:hover {
+.nav>li:hover {
     list-style-type: none;
     display: inline;
     background-color: #DDD;
@@ -71,33 +71,35 @@ textarea {
 
 .feed {
     border-right: #DDD 1px solid;
-    width: 100%;
+    width: 600px;
     max-height: 60000px;
     display: block;
     float: left;
 }
 .right-side {
-    width: 100%;
+    width: 518px;
     display: block;
     float: left;
+    margin-left: 20px;
 }
 .right-side>.post {
     float: left;
 }
 
 .item {
-    width: 100%;
+    width: 600px;
     display: block;
     margin-bottom: 20px;
     border-bottom: 1px #DDD solid;
     padding-bottom: 10px;
 }
 .item img {
-    width: 100%;
+    max-width: 450px;
 }
 .item .post_info {
+    width: 100px;
     vertical-align: top;
-    margin-bottom: 5px;
+    display: inline-block;
 }
 .item .img_id {
     font-size: 13px;
@@ -105,10 +107,7 @@ textarea {
 }
 .user_name {
     display: block;
-    font-weight: bolder;
-}
-.user_name_m {
-    font-weight: bolder;
+    font-weight: 600;
 }
 
 .timestamp {
@@ -117,13 +116,13 @@ textarea {
 }
 .item .text {
     display: inline-block;
-    width: 100%;
+    width: 450px;
 }
 .text>img {
     margin-bottom: 3px;
 }
-.text span {
-  display: block;
+.text>span {
+  display: inline-block;
   font-family: sans-serif;
   font-weight: 300;
   word-break: break-word;
@@ -156,13 +155,11 @@ textarea {
     margin-left: 5px;
     margin-top: 8px;
 }
-.post {
-  padding: 0px;
-  width: 100%;
-  box-sizing: border-box;
+.comment-submit>.post {
+    width: 590px;
 }
 .comment-submit>button {
-    width: 100%;
+    width: 595px;
 }
 .button-submit {
     margin-top: 3px;
